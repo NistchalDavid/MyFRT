@@ -3,55 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Website</title>
-    <!-- Add your CSS stylesheets here -->
-    <link rel="stylesheet" href="styles.css">
+    <title>Health Bot</title>
+    <style>
+        /* Add your CSS styling here */
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Health Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div id="chat-container">
+        <div id="chat-messages">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" id="user-input" placeholder="Ask a health-related question...">
+        <button id="send-button">Send</button>
+    </div>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>This is a brief description of our health organization.</p>
-    </section>
+    <script>
+        // JavaScript for the health bot functionality
+        const chatMessages = document.getElementById("chat-messages");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
 
-    <section id="services">
-        <h2>Our Services</h2>
-        <ul>
-            <li>Service 1</li>
-            <li>Service 2</li>
-            <li>Service 3</li>
-        </ul>
-    </section>
+        // Function to add a message to the chat
+        function addMessage(message, sender) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = sender === "user" ? "user-message" : "bot-message";
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+        }
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Feel free to reach out to us:</p>
-        <form action="contact_form_handler.php" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+        // Function to handle user input
+        function handleUserInput() {
+            const userMessage = userInput.value;
+            if (userMessage.trim() === "") return; // Don't send empty messages
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            addMessage(userMessage, "user");
+            userInput.value = ""; // Clear the input field
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea><br>
+            // You can add your health bot logic here to generate a bot response
+            const botResponse = generateBotResponse(userMessage);
+            addMessage(botResponse, "bot");
+        }
 
-            <input type="submit" value="Submit">
-        </form>
-    </section>
+        // Function to generate a bot response (placeholder)
+        function generateBotResponse(userMessage) {
+            // Replace this with your actual health bot logic
+            if (userMessage.includes("symptoms")) {
+                return "It's important to consult with a healthcare professional for accurate diagnosis.";
+            } else {
+                return "I'm sorry, I don't have enough information to provide a specific answer.";
+            }
+        }
 
-    <footer>
-        <p>&copy; 2023 Health Website</p>
-    </footer>
+        // Event listener for the send button
+        sendButton.addEventListener("click", handleUserInput);
+
+        // Event listener for pressing Enter in the input field
+        userInput.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                handleUserInput();
+            }
+        });
+    </script>
 </body>
 </html>
