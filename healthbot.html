@@ -13,7 +13,7 @@
         <div id="chat-messages">
             <!-- Chat messages will appear here -->
         </div>
-        <input type="text" id="user-input" placeholder="Type your message...">
+        <input type="text" id="user-input" placeholder="Ask a health-related question...">
         <button id="send-button">Send</button>
     </div>
 
@@ -40,8 +40,18 @@
             userInput.value = ""; // Clear the input field
 
             // You can add your health bot logic here to generate a bot response
-            const botResponse = "This is a bot response. Replace with your logic.";
+            const botResponse = generateBotResponse(userMessage);
             addMessage(botResponse, "bot");
+        }
+
+        // Function to generate a bot response (placeholder)
+        function generateBotResponse(userMessage) {
+            // Replace this with your actual health bot logic
+            if (userMessage.includes("symptoms")) {
+                return "It's important to consult with a healthcare professional for accurate diagnosis.";
+            } else {
+                return "I'm sorry, I don't have enough information to provide a specific answer.";
+            }
         }
 
         // Event listener for the send button
